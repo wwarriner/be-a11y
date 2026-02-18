@@ -1,28 +1,28 @@
-const fs = require("fs");
-const path = require("path");
-const chalk = require("chalk");
+import fs from "fs";
+import path from "path";
+import chalk from "chalk";
 const fetch = require("node-fetch"); // v2 for CommonJS
 const core = require("@actions/core");
 
 // Rules
-const headingOrder = require("./src/rules/headingOrder");
-const headingEmpty = require("./src/rules/headingEmpty");
-const altAttributes = require("./src/rules/altAttributes");
-const ariaLabels = require("./src/rules/ariaLabels");
-const missingAria = require("./src/rules/missingAria");
-const linksOpenNewTab = require("./src/rules/linksOpenNewTab");
-const contrast = require("./src/rules/contrast");
-const landmarkRoles = require("./src/rules/landmarkRoles");
-const iframeTitles = require("./src/rules/iframeTitles");
-const ariaRoles = require("./src/rules/ariaRoles");
-const labelsWithoutFor = require("./src/rules/labelsWithoutFor");
-const multipleH1 = require("./src/rules/multipleH1");
-const emptyLinks = require("./src/rules/emptyLinks");
-const unlabeledInputs = require("./src/rules/unlabeledInputs");
+import headingOrder from "./src/rules/headingOrder.js";
+import headingEmpty from "./src/rules/headingEmpty.js";
+import altAttributes from "./src/rules/altAttributes.js";
+import ariaLabels from "./src/rules/ariaLabels.js";
+import missingAria from "./src/rules/missingAria.js";
+import linksOpenNewTab from "./src/rules/linksOpenNewTab.js";
+import contrast from "./src/rules/contrast.js";
+import landmarkRoles from "./src/rules/landmarkRoles.js";
+import iframeTitles from "./src/rules/iframeTitles.js";
+import ariaRoles from "./src/rules/ariaRoles.js";
+import labelsWithoutFor from "./src/rules/labelsWithoutFor.js";
+import multipleH1 from "./src/rules/multipleH1.js";
+import emptyLinks from "./src/rules/emptyLinks.js";
+import unlabeledInputs from "./src/rules/unlabeledInputs.js";
 
 // Utils
-const configuration = require("./src/utils/configuration");
-const { printErrors, printSummary } = require("./src/utils/logger");
+import configuration from "./src/utils/configuration.js";
+import { printErrors, printSummary } from "./src/utils/logger.js";
 
 const allowedExtensions = [
   ".latte",
@@ -84,7 +84,7 @@ const shouldRun = (rule) => config.rules[rule] !== false;
  * @param {string} dir - Directory path to search.
  * @returns {string[]} Array of matched file paths.
  */
-function findFiles(dir) {
+export function findFiles(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   return entries.flatMap((entry) => {
     const fullPath = path.join(dir, entry.name);
@@ -102,7 +102,7 @@ function findFiles(dir) {
  * @param {object[]} errors - List of error objects.
  * @param {string} outputPath - Path to save the JSON file.
  */
-function exportToJson(errors, outputPath) {
+export function exportToJson(errors, outputPath) {
   try {
     fs.writeFileSync(outputPath, JSON.stringify(errors, null, 2), "utf-8");
     console.log(chalk.blue(`📦 Results exported to ${outputPath}`));

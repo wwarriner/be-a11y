@@ -1,5 +1,5 @@
-const fs = require("fs");
-const chalk = require("chalk");
+import fs from "fs";
+import chalk from "chalk";
 
 /**
  * Loads config with defaults if missing values.
@@ -7,12 +7,16 @@ const chalk = require("chalk");
  * @param {string} configFile
  * @returns {object} Normalized config object
  */
-module.exports = function configuration(configFile) {
+export default function configuration(configFile) {
   let config = {};
   try {
     config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
   } catch (err) {
-    console.warn(chalk.yellow("⚠️  No config file found or invalid JSON. Using default rules."));
+    console.warn(
+      chalk.yellow(
+        "⚠️  No config file found or invalid JSON. Using default rules."
+      )
+    );
     config.rules = {};
     // config.allowedExtensions = {};
     // config.excludedDirs = {};

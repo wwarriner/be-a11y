@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks that <iframe> elements have a non-empty, descriptive title attribute.
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of iframe title issues.
  */
-module.exports = function iframeTitles(content, file) {
+export default function iframeTitles(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

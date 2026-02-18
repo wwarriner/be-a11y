@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks if important elements lack visible text or an ARIA label.
@@ -9,7 +9,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of missing ARIA label issues.
  */
-module.exports = function missingAria(content, file) {
+export default function missingAria(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

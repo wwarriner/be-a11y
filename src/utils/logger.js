@@ -1,11 +1,11 @@
-const chalk = require("chalk");
+import chalk from "chalk";
 
 /**
  * Groups an array of errors by their `type` property.
  * @param {object[]} errors - List of error objects.
  * @returns {object} Errors grouped by type.
  */
-function groupErrors(errors) {
+export function groupErrors(errors) {
   return errors.reduce((acc, error) => {
     if (!acc[error.type]) acc[error.type] = [];
     acc[error.type].push(error);
@@ -18,7 +18,7 @@ function groupErrors(errors) {
  * Issues are grouped by type with color-coded headings.
  * @param {object[]} errors - List of error objects.
  */
-function printErrors(errors) {
+export function printErrors(errors) {
   const grouped = groupErrors(errors);
 
   const typeLabels = {
@@ -33,7 +33,7 @@ function printErrors(errors) {
     "missing-aria": chalk.blue.bold("👀  Missing ARIA"),
     "aria-role-invalid": chalk.blue.bold("🧩  ARIA Role Issues"),
     "missing-landmark": chalk.yellowBright.bold("🏛️  Landmark Elements"),
-    "contrast": chalk.red.bold("🎨  Contrast Issues"),
+    contrast: chalk.red.bold("🎨  Contrast Issues"),
     "label-for-missing": chalk.red.bold("🔗  Broken Label Association"),
     "label-missing-for": chalk.yellow.bold("🏷️  Unassociated Label"),
     "redundant-title": chalk.gray.bold("📛  Redundant Title Text"),
@@ -52,8 +52,8 @@ function printErrors(errors) {
     for (const { file, line, message } of list) {
       console.log(
         `  ${chalk.gray("-")} ${chalk.green(file)}:${chalk.yellow(
-          line,
-        )} – ${chalk.white(message)}`,
+          line
+        )} – ${chalk.white(message)}`
       );
     }
   }
@@ -63,7 +63,7 @@ function printErrors(errors) {
  * Prints a summary table of accessibility issue counts by type.
  * @param {object[]} errors - List of error objects.
  */
-function printSummary(errors) {
+export function printSummary(errors) {
   const grouped = groupErrors(errors);
   const summary = Object.entries(grouped).map(([type, list]) => ({
     "Issue Type": type,
@@ -73,6 +73,3 @@ function printSummary(errors) {
   console.log(chalk.bold("\n📊 Accessibility Checksum Summary:"));
   console.table(summary);
 }
-
-
-module.exports = { printErrors, printSummary }

@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks that there is only one <h1> on the page.
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of multiple H1 tag warnings.
  */
-module.exports = function multipleH1(content, file) {
+export default function multipleH1(content, file) {
   const $ = cheerio.load(content);
   const h1s = $("h1");
 

@@ -1,4 +1,4 @@
-const cheerio = require("cheerio");
+import * as cheerio from "cheerio";
 
 /**
  * Verifies the presence of at least one semantic landmark element.
@@ -8,7 +8,7 @@ const cheerio = require("cheerio");
  * @param {string} file - File name.
  * @returns {object[]} List containing missing landmark error, if any.
  */
-module.exports = function landmarkRoles(content, file) {
+export default function landmarkRoles(content, file) {
   const $ = cheerio.load(content);
   const landmarks = ["main", "nav", "header", "footer", "aside"];
   const errors = [];

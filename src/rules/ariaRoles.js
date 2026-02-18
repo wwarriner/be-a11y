@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Rule to validate correct usage of ARIA roles
@@ -9,7 +9,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {*} file
  * @returns
  */
-module.exports = function ariaRoles(content, file) {
+export default function ariaRoles(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

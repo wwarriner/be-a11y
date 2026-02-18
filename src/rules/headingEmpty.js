@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks for empty heading tags (e.g., <h2></h2> or <h2>   </h2>).
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of empty heading errors.
  */
-module.exports = function headingEmpty(content, file) {
+export default function headingEmpty(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 
