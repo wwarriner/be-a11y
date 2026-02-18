@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 import chalk from "chalk";
-const fetch = require("node-fetch"); // v2 for CommonJS
-const core = require("@actions/core");
+import * as core from "@actions/core";
 
 // Rules
 import headingOrder from "./src/rules/headingOrder.js";
