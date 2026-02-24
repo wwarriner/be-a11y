@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Validates that all <img> tags have appropriate `alt` attributes.
@@ -9,7 +9,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of alt attribute errors.
  */
-module.exports = function altAttributes(content, file, config = { rules: {} }) {
+export default function altAttributes(content, file, config = { rules: {} }) {
   const $ = cheerio.load(content);
   const errors = [];
   const seen = new Set();

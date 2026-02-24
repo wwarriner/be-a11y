@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks that each <label> element is properly associated with a form control.
@@ -10,7 +10,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of label association errors.
  */
-module.exports = function labelsWithoutFor(content, file) {
+export default function labelsWithoutFor(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

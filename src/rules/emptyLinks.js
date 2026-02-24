@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks for links that are empty or lack href/text.
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of link errors.
  */
-module.exports = function emptyLinks(content, file) {
+export default function emptyLinks(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

@@ -1,6 +1,6 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
-const tinycolor = require("tinycolor2");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
+import tinycolor from "tinycolor2";
 
 /**
  * Evaluates inline styles for text/background color contrast ratio.
@@ -10,7 +10,7 @@ const tinycolor = require("tinycolor2");
  * @param {string} file - File name.
  * @returns {object[]} List of contrast issues.
  */
-module.exports = function contrast(content, file) {
+export default function contrast(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 
@@ -40,7 +40,9 @@ module.exports = function contrast(content, file) {
             file,
             line: lineNumber,
             type: "contrast",
-            message: `Low contrast ratio (${contrast.toFixed(2)}): ${inlineStyles["color"]} on ${inlineStyles["background-color"]}`,
+            message: `Low contrast ratio (${contrast.toFixed(2)}): ${
+              inlineStyles["color"]
+            } on ${inlineStyles["background-color"]}`,
           });
         }
       }

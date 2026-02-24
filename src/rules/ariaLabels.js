@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks for invalid or missing values in `aria-label` and `aria-labelledby`.
@@ -9,7 +9,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of ARIA label errors.
  */
-module.exports = function ariaLabels(content, file) {
+export default function ariaLabels(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 

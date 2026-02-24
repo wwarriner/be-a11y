@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks if checkboxes and radios are properly labeled.
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of form label errors.
  */
-module.exports = function unlabeledInputs(content, file) {
+export default function unlabeledInputs(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 
@@ -27,7 +27,9 @@ module.exports = function unlabeledInputs(content, file) {
         file,
         line: lineNumber,
         type: "input-unlabeled",
-        message: `<input type="${$el.attr("type")}"> is not associated with a label`,
+        message: `<input type="${$el.attr(
+          "type"
+        )}"> is not associated with a label`,
       });
     }
   });

@@ -1,6 +1,6 @@
 {
   "name": "@belenkadev/be-a11y",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Web accesibility tools",
   "keywords": [
     "js",
@@ -17,19 +17,17 @@
   },
   "license": "MIT",
   "author": "BeLenka X Barebarics",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "npm install",
     "build": "ncc build index.js -o dist"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "be-a11y": "github:be-lenka/be-a11y",
+    "@actions/core": "^3.0.0",
     "chalk": "^5.6.2",
-    "cheerio": "^1.1.2",
+    "cheerio": "^1.2.0",
     "css": "^3.0.0",
-    "node-fetch": "^2.7.0",
     "tinycolor2": "^1.6.0"
   },
   "bin": {
@@ -39,6 +37,6 @@
     "doc": "docs"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.3"
+    "@vercel/ncc": "^0.38.4"
   }
 }

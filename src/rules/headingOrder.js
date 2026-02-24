@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks if headings (h1-h6) are used in the correct order (no jumps).
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of heading order errors.
  */
-module.exports = function headingOrder(content, file) {
+export default function headingOrder(content, file) {
   const $ = cheerio.load(content);
   let lastLevel = 0;
   const errors = [];

@@ -1,5 +1,5 @@
-const cheerio = require("cheerio");
-const getLineNumber = require("../utils/getLineNumber");
+import * as cheerio from "cheerio";
+import getLineNumber from "../utils/getLineNumber.js";
 
 /**
  * Checks if links opening in a new tab/window notify screen readers.
@@ -8,7 +8,7 @@ const getLineNumber = require("../utils/getLineNumber");
  * @param {string} file - File name.
  * @returns {object[]} List of new tab warning issues.
  */
-module.exports = function linksOpenNewTab(content, file) {
+export default function linksOpenNewTab(content, file) {
   const $ = cheerio.load(content);
   const errors = [];
 
@@ -19,14 +19,17 @@ module.exports = function linksOpenNewTab(content, file) {
     const tagIndex = content.indexOf(html);
     const lineNumber = getLineNumber(content, tagIndex);
 
-    const hasScreenReaderNote = $el
-      .find(".sr-only, .visually-hidden")
-      .filter((i, n) => {
+    const hasScreenReaderNote =
+      $el.find(".sr-only, .visually-hidden").filter((i, n) => {
         const text = $(n).text().toLowerCase();
-        return text.includes("opens in a new tab") || text.includes("opens in new window");
+        return (
+          text.includes("opens in a new tab") ||
+          text.includes("opens in new window")
+        );
       }).length > 0;
 
-    const describesNewTab = ariaLabel.toLowerCase().includes("opens in a new tab") ||
+    const describesNewTab =
+      ariaLabel.toLowerCase().includes("opens in a new tab") ||
       ariaLabel.toLowerCase().includes("opens in new window");
 
     if (!describesNewTab && !hasScreenReaderNote) {
