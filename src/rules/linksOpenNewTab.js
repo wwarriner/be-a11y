@@ -1,6 +1,15 @@
 import * as cheerio from "cheerio";
 import getLineNumber from "../utils/getLineNumber.js";
 
+/* future i18n */
+const pattern =
+  "^opens?( (in|a|(in a)))? new (tab|window|(tab or window)|(window or tab))$";
+const type = "link-new-tab-warning";
+const message = `<a> with target="_blank" should inform users it opens in a new tab (e.g., via aria-label or screen reader note)`;
+
+const flags = "i";
+const re = new RegExp(pattern, flags);
+
 /**
  * Checks if links opening in a new tab/window notify screen readers.
  *
@@ -14,30 +23,30 @@ export default function linksOpenNewTab(content, file) {
 
   $("a[target='_blank']").each((_, el) => {
     const $el = $(el);
-    const ariaLabel = $el.attr("aria-label") || "";
-    const html = $.html(el);
-    const tagIndex = content.indexOf(html);
-    const lineNumber = getLineNumber(content, tagIndex);
 
+    /* check <a> has appropriate aria-label attribute */
+    const ariaLabel = $el.attr("aria-label") || "";
+    const text = ariaLabel.toLowerCase();
+    const describesNewTab = re.test(text);
+
+    /* check <a> descendants have appropriate classes and text */
     const hasScreenReaderNote =
-      $el.find(".sr-only, .visually-hidden").filter((i, n) => {
+      $el.find(".sr-only, .visually-hidden").filter((_, n) => {
         const text = $(n).text().toLowerCase();
-        return (
-          text.includes("opens in a new tab") ||
-          text.includes("opens in new window")
-        );
+        return re.test(text);
       }).length > 0;
 
-    const describesNewTab =
-      ariaLabel.toLowerCase().includes("opens in a new tab") ||
-      ariaLabel.toLowerCase().includes("opens in new window");
-
-    if (!describesNewTab && !hasScreenReaderNote) {
+    /* report issue */
+    const ok = describesNewTab || hasScreenReaderNote;
+    if (!ok) {
+      const html = $.html(el);
+      const tagIndex = content.indexOf(html);
+      const lineNumber = getLineNumber(content, tagIndex);
       errors.push({
         file,
         line: lineNumber,
-        type: "link-new-tab-warning",
-        message: `<a> with target="_blank" should inform users it opens in a new tab (e.g., via aria-label or screen reader note)`,
+        type: type,
+        message: message,
       });
     }
   });
